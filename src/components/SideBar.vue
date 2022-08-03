@@ -6,34 +6,41 @@
         btnState="active"
         @btnClicked="openModal"
       ></ButtonComponent>
-      <div v-if="!hasSource" class="source-placeholder">
+      <div v-if="!sourceList.length" class="source-placeholder">
         <span class="plus"> + </span>
         <span class="text-black text-lg font-bold">Add Media Source</span>
         <span class="text-small">Screenshare, Camera</span>
       </div>
+      <div v-else></div>
     </div>
+    <ModalComponent
+      v-if="showModal"
+      @close="showModal = false"
+      @addSource="showSource($event)"
+    ></ModalComponent>
   </div>
 </template>
 
 <script>
 import ButtonComponent from "./ButtonComponent.vue";
+import ModalComponent from "./ModalComponent.vue";
 
 export default {
   name: "SideBar",
-  components: { ButtonComponent },
+  components: { ButtonComponent, ModalComponent },
   data() {
     return {
       sourceList: [],
+      showModal: false,
     };
-  },
-  computed: {
-    hasSource() {
-      return this.sourceList.length > 1;
-    },
   },
   methods: {
     openModal() {
+      this.showModal = true;
       console.log("modal opened");
+    },
+    showSource(value) {
+      this.sourceList = value;
     },
   },
 };

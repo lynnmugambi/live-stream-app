@@ -34,6 +34,10 @@ export default {
   font-weight: 700;
   background-color: var(--lightGreyBtn);
 
+  &[disabled] {
+    background-color: var(--darkGreyBg);
+  }
+
   &-active {
     @apply text-white;
     background-color: var(--darkTeal);
