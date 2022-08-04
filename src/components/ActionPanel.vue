@@ -15,7 +15,7 @@ export default {
 
 <style lang="scss" scoped>
 .action-panel {
-  @apply inline-flex p-3 gap-2 border-slate-300 border-solid border-2 absolute bottom-0;
+  @apply inline-flex p-3 gap-2 border-slate-300 border-solid border-2 absolute bottom-0 max-w-2xl;
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
   width: 40%;

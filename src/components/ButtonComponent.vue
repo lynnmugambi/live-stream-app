@@ -30,7 +30,7 @@ export default {
 
 <style lang="scss" scoped>
 .button {
-  @apply py-2 px-4 rounded text-black flex justify-center items-center;
+  @apply py-2 px-4 rounded text-black flex justify-center items-center capitalize;
   font-weight: 700;
   background-color: var(--lightGreyBtn);
 

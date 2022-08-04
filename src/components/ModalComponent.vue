@@ -32,29 +32,22 @@
             </button>
           </div>
           <div class="modal-body">
-            <!-- A v-for loop would have also worked well here. Tried but seemed to affect reactivity when rendering the class conditionally-->
             <div
+              v-for="(source, index) in sources"
+              :key="index"
               class="box"
-              @click="addSource(sources[0].title)"
-              :class="{ selected: isScreenSelected }"
+              @click="addSource(source.title)"
+              :class="{ selected: selectedSources.includes(source.title) }"
             >
-              <h4 class="box-title">{{ sources[0].title }}</h4>
-              <p class="box-text">{{ sources[0].text }}</p>
-            </div>
-            <div
-              class="box"
-              @click="addSource(sources[1].title)"
-              :class="{ selected: isVideoSelected }"
-            >
-              <h4 class="box-title">{{ sources[1].title }}</h4>
-              <p class="box-text">{{ sources[1].text }}</p>
+              <h4 class="box-title">{{ source.title }}</h4>
+              <p class="box-text">{{ source.text }}</p>
             </div>
           </div>
           <div class="flex justify-end p-4 rounded-b border-t border-gray-200">
             <ButtonComponent
               text="Submit"
               btnState="active"
-              :disabled="!selected.size"
+              :disabled="!selectedSources.length"
               @btnClicked="closeModal"
             ></ButtonComponent>
           </div>
@@ -68,6 +61,7 @@
 import ButtonComponent from "./ButtonComponent.vue";
 export default {
   name: "ModalComponent",
+
   data() {
     return {
       sources: [
@@ -80,9 +74,7 @@ export default {
           text: "Share a feed of your in-built webcam and microphone. If you do not have a webcam, you can use a “virtual” webcam such as Streamlabs Desktop virtual camera",
         },
       ],
-      selected: new Set(),
-      isScreenSelected: false,
-      isVideoSelected: false,
+      selectedSources: [],
     };
   },
   methods: {
@@ -90,20 +82,15 @@ export default {
       this.$emit("close");
     },
     closeModal() {
-      this.$emit("addSource", Array.from(this.selected));
+      this.$emit("addSource", this.selectedSources);
       this.$emit("close");
     },
     addSource(source) {
-      if (this.selected.has(source)) {
-        source === "Screenshare"
-          ? (this.isScreenSelected = false)
-          : (this.isVideoSelected = false);
-        this.selected.delete(source);
+      if (this.selectedSources.includes(source)) {
+        let index = this.selectedSources.findIndex((e) => e == source);
+        this.selectedSources.splice(index, 1);
       } else {
-        source === "Screenshare"
-          ? (this.isScreenSelected = true)
-          : (this.isVideoSelected = true);
-        this.selected.add(source);
+        this.selectedSources.push(source);
       }
     },
   },

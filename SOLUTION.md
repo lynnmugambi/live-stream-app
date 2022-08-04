@@ -1,16 +1,22 @@
 To-do:
 
 - Modal to select source
---> challenge : reactively updating modal selection when rendered using v-for. Ended up having to render separately to test selection. bummer
 --> Added a submit button for UI ease
 --> Done
 
 - show sources in side panel
---> Maybe components? pass text & url, once clicked, dispatch to store?
-- show view options when source is clicked
---> MapState get image to show, use to display on canvas and show view options
+--> Done
+--> emit sources in stream to App.vue
+
 - Overlap images when added to the stream
-- configure different view options
+--> pass sources in Stream to component
+--> show in canvas
+- create StreamOptions component
+--> should only show if source is in stream
+--> conditionally show different StreamOptions
+--> emit to canvas when option is picked
+
+
 
 - How long did it take you to complete this assignment?
 --> 3.5hrs
