@@ -1,17 +1,29 @@
 <template>
   <div class="stream-options pt-6">
     <div class="webcam inline-flex flex-row gap-4" v-if="showCamOnly">
-      <div class="opt-container" @click="selectView('webcam-full')">
+      <div
+        class="opt-container"
+        @click="selectView('selectedCam', 'webcam-full')"
+        :class="[selectedCam == 'webcam-full' ? 'selected' : '']"
+      >
         <div class="inner inner-full">
           <UserIcon viewBox="0 0 36 37" />
         </div>
       </div>
-      <div class="opt-container inner-80">
+      <div
+        class="opt-container inner-80"
+        @click="selectView('selectedCam', 'webcam-80')"
+        :class="[selectedCam == 'webcam-80' ? 'selected' : '']"
+      >
         <div class="inner">
           <UserIcon viewBox="0 0 36 37" />
         </div>
       </div>
-      <div class="opt-container inner-60">
+      <div
+        class="opt-container inner-60"
+        @click="selectView('selectedCam', 'webcam-60')"
+        :class="[selectedCam == 'webcam-60' ? 'selected' : '']"
+      >
         <div class="inner">
           <UserIcon viewBox="0 0 36 37" />
         </div>
@@ -26,21 +38,33 @@
       class="webcam-screenshare inline-flex flex-row gap-4"
       v-if="showCamAndScreen"
     >
-      <div class="opt-container">
+      <div
+        class="opt-container"
+        @click="selectView('selectedWebAndCam', 'shared-left')"
+        :class="[selectedWebAndCam == 'shared-left' ? 'selected' : '']"
+      >
         <ScreenshareIcon viewBox="0 0 36 36" />
         <div class="inner inner-left">
           <UserIcon viewBox="0 0 36 37" />
         </div>
       </div>
-      <div class="opt-container">
+      <div
+        class="opt-container"
+        @click="selectView('selectedWebAndCam', 'shared-right')"
+        :class="[selectedWebAndCam == 'shared-right' ? 'selected' : '']"
+      >
         <ScreenshareIcon viewBox="0 0 36 36" />
         <div class="inner inner-right">
           <UserIcon viewBox="0 0 36 37" />
         </div>
       </div>
-      <div class="opt-container">
+      <div
+        class="opt-container"
+        @click="selectView('selectedWebAndCam', 'shared-side')"
+        :class="[selectedWebAndCam == 'shared-side' ? 'selected' : '']"
+      >
         <ScreenshareIcon class="mr-8" viewBox="0 0 36 36" />
-        <div class="inner right">
+        <div class="inner side">
           <UserIcon viewBox="0 0 36 37" />
         </div>
       </div>
@@ -65,30 +89,34 @@ export default {
   },
   watch: {
     views(newValue) {
-      if (newValue.length == 2) {
-        this.showScreenOnly = false;
-        this.showCamOnly = false;
-        this.showCamAndScreen = true;
-      } else if (newValue.length == 1) {
-        this.showCamAndScreen = false;
-        if (newValue.includes("Screenshare")) {
-          this.showScreenOnly = true;
-        } else {
-          this.showCamOnly = true;
-        }
-      } else {
-        this.showScreenOnly = false;
-        this.showCamOnly = false;
-        this.showWS = false;
+      if (newValue) {
+        this.selectedCam = "webcam-full";
+        this.selectedWebAndCam = "shared-left";
       }
     },
   },
   data() {
     return {
-      showCamOnly: false,
-      showScreenOnly: false,
-      showCamAndScreen: false,
+      selectedCam: "webcam-full",
+      selectedWebAndCam: "shared-left",
     };
+  },
+  computed: {
+    showCamOnly() {
+      return this.views.includes("Video Feed") && this.views.length < 2;
+    },
+    showScreenOnly() {
+      return this.views.includes("Screenshare") && this.views.length < 2;
+    },
+    showCamAndScreen() {
+      return this.views.length > 1;
+    },
+  },
+  methods: {
+    selectView(type, orientation) {
+      this[type] = orientation;
+      this.$emit("orientViews", orientation);
+    },
   },
 };
 </script>
@@ -116,11 +144,23 @@ $greyIconColor: #91979a;
         background: var(--lightGreyBg) !important;
       }
     }
+    .selected {
+      border: 4px solid var(--darkTeal);
+      background: white;
+
+      .inner {
+        background: var(--lightTeal);
+
+        svg {
+          color: var(--darkTeal);
+        }
+      }
+    }
     .inner-80 {
-      @apply p-4;
+      @apply p-3;
     }
     .inner-60 {
-      @apply p-5;
+      @apply p-4;
     }
   }
   .screenshare {
@@ -157,12 +197,26 @@ $greyIconColor: #91979a;
         @apply rounded-lg absolute flex justify-center items-center bottom-2 w-7 h-6;
         background: var(--darkGreyBg);
       }
-      .right {
+      .side {
         @apply right-0 h-full w-1/3 bottom-0;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
         svg {
           width: 22px;
+        }
+      }
+    }
+    .selected {
+      border: 4px solid var(--darkTeal);
+      background: var(--lightTeal);
+      svg {
+        color: var(--darkTeal);
+      }
+
+      .inner {
+        background: white;
+        svg {
+          color: var(--darkTeal);
         }
       }
     }

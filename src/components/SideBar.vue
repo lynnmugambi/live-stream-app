@@ -58,10 +58,18 @@ export default {
       return (source) => (this.inStream.includes(source) ? "hide" : "active");
     },
   },
+  watch: {
+    sourceList(newValue) {
+      if (newValue) {
+        // clear current view if sourceList changes, helps remove stale state.
+        this.inStream = [];
+        this.$emit("views", this.inStream);
+      }
+    },
+  },
   methods: {
     openModal() {
       this.showModal = true;
-      console.log("modal opened");
     },
     showSource(value) {
       let sources = [];
@@ -76,12 +84,14 @@ export default {
     },
     toggleStream(source) {
       if (this.inStream.includes(source)) {
+        //remove source if exists in array
         let index = this.inStream.findIndex((e) => e == source);
         this.inStream.splice(index, 1);
       } else {
+        //add source to array
         this.inStream.push(source);
       }
-
+      //emit to parent component
       this.$emit("views", this.inStream);
     },
   },
