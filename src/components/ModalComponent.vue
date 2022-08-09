@@ -1,4 +1,5 @@
 <template>
+  <!-- Modal component used to select sources for the side panel-->
   <div
     class="modal"
     aria-labelledby="modal-title"
@@ -10,6 +11,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h3 class="modal-header__text">Add a new media source</h3>
+            <!--Close Icon to exit modal-->
             <button
               type="button"
               class="modal-header__button"
@@ -32,6 +34,7 @@
             </button>
           </div>
           <div class="modal-body">
+            <!-- Reusable component to display the different sources available -->
             <div
               v-for="(source, index) in sources"
               :key="index"
@@ -44,6 +47,7 @@
             </div>
           </div>
           <div class="flex justify-end p-4 rounded-b border-t border-gray-200">
+            <!-- Button component to submit selected sources-->
             <ButtonComponent
               text="Submit"
               btnState="active"
@@ -87,6 +91,7 @@ export default {
     },
     addSource(source) {
       if (this.selectedSources.includes(source)) {
+        //removes source if already exixts in selectedSources array
         let index = this.selectedSources.findIndex((e) => e == source);
         this.selectedSources.splice(index, 1);
       } else {

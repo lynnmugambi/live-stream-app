@@ -1,4 +1,5 @@
 <template>
+  <!-- Reusable button component used throughout the application-->
   <div class="button" :class="getClass" @click="emitClick">{{ text }}</div>
 </template>
 
@@ -7,12 +8,15 @@ export default {
   name: "ButtonComponent",
   props: {
     text: {
+      //text to be displayed on the button
       type: String,
       default: "Add Text",
       required: true,
     },
     btnState: {
+      //changes the styling behavior of the button
       type: String,
+      default: "active",
     },
   },
   computed: {

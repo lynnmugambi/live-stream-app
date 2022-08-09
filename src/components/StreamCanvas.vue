@@ -1,5 +1,6 @@
 <template>
   <main class="stream-canvas">
+    <!-- Display Element-->
     <div class="container" :class="parentClass">
       <div v-if="type === 'shared'" :class="viewOrientation">
         <div class="inner"></div>
@@ -35,6 +36,7 @@ export default {
   },
   watch: {
     streamViews(newViews) {
+      // sets default orientation in display element when sources are set initially
       if (newViews.includes("Screenshare") && newViews.length < 2) {
         this.viewOrientation = "screenshare";
       }
@@ -49,6 +51,7 @@ export default {
       }
     },
     viewOrientation(newView) {
+      //adds padding as needed when different orientations are selected
       let type = newView.split("-");
       this.type = type[0];
       if (type[0] == "webcam") {

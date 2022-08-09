@@ -1,6 +1,8 @@
 <template>
+  <!--Component that allows user to pick desired display orientation -->
   <div class="stream-options pt-6">
     <div class="webcam inline-flex flex-row gap-4" v-if="showCamOnly">
+      <!--Webcam options -->
       <div
         class="opt-container"
         @click="selectView('selectedCam', 'webcam-full')"
@@ -30,6 +32,7 @@
       </div>
     </div>
     <div class="screenshare" v-if="showScreenOnly">
+      <!--Screenshare options -->
       <div class="opt-container">
         <ScreenshareIcon viewBox="0 0 36 36" />
       </div>
@@ -38,6 +41,7 @@
       class="webcam-screenshare inline-flex flex-row gap-4"
       v-if="showCamAndScreen"
     >
+      <!--Webcam + Screenshare options -->
       <div
         class="opt-container"
         @click="selectView('selectedWebAndCam', 'shared-left')"
@@ -90,6 +94,7 @@ export default {
   watch: {
     views(newValue) {
       if (newValue) {
+        // reset to default if views is reset
         this.selectedCam = "webcam-full";
         this.selectedWebAndCam = "shared-left";
       }

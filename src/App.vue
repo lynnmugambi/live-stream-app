@@ -21,6 +21,7 @@ export default {
   },
   methods: {
     setViews(data) {
+      //passes selected views to the StreamCanvas for display
       this.selectedViews = data;
     },
   },

@@ -1,4 +1,5 @@
 <template>
+  <!-- Action panel in the StreamCanvas component. Currently static-->
   <div class="action-panel">
     <ButtonComponent text="Chat"></ButtonComponent>
     <ButtonComponent text="Record"></ButtonComponent>

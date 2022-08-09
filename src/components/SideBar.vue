@@ -6,12 +6,14 @@
         btnState="active"
         @btnClicked="openModal"
       ></ButtonComponent>
+      <!-- Placeholder element when no sources are selected -->
       <div v-if="!sourceList.length" class="source-placeholder">
         <span class="plus"> + </span>
         <span class="text-black text-lg font-bold">Add Media Source</span>
         <span class="text-small">Screenshare, Camera</span>
       </div>
       <div v-else class="inline-flex gap-2 flex-col">
+        <!-- Reusable component to display selected sources available to show in stream -->
         <div
           v-for="(source, index) in sourceList"
           :key="index"
@@ -50,6 +52,7 @@ export default {
     };
   },
   computed: {
+    //both methods below allow parameters to reactively update the buttons for each source correctly.
     btnText() {
       return (source) =>
         this.inStream.includes(source) ? "hide on stream" : "show on stream";
@@ -74,6 +77,11 @@ export default {
     showSource(value) {
       let sources = [];
       value.forEach((element) => {
+        /*creates an object with data needed to correctly render each source
+        name: Name of source
+        class: For rendering image
+        text: Text to be displayed on element
+        */
         sources.push({
           name: element,
           class: element === "Screenshare" ? "screenshare" : "webcam",
