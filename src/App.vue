@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <SideBar></SideBar>
-    <StreamCanvas></StreamCanvas>
+    <SideBar @views="setViews($event)"></SideBar>
+    <StreamCanvas :streamViews="selectedViews"></StreamCanvas>
   </div>
 </template>
 
@@ -13,6 +13,16 @@ export default {
   components: {
     SideBar,
     StreamCanvas,
+  },
+  data() {
+    return {
+      selectedViews: [],
+    };
+  },
+  methods: {
+    setViews(data) {
+      this.selectedViews = data;
+    },
   },
 };
 </script>

@@ -12,6 +12,7 @@ To-do:
 --> pass sources in Stream to component
 --> show in canvas
 - create StreamOptions component
+--> import options from figma, not worth the effort for now
 --> should only show if source is in stream
 --> conditionally show different StreamOptions
 --> emit to canvas when option is picked
@@ -31,3 +32,4 @@ To-do:
 --> Tailwind
 - Did you make certain assumptions and decisions around the UI/UX? Please elaborate on your reasonings.
  --> adding close button and submit buttons to modal
+ --> responsiveness was left out in the assumption that most users will be on desktop. This can be sorted out later

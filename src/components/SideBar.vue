@@ -1,5 +1,5 @@
 <template>
-  <div class="side-bar">
+  <aside class="side-bar">
     <div class="content">
       <ButtonComponent
         text="Add Source"
@@ -32,7 +32,7 @@
       @close="showModal = false"
       @addSource="showSource($event)"
     ></ModalComponent>
-  </div>
+  </aside>
 </template>
 
 <script>
@@ -81,6 +81,8 @@ export default {
       } else {
         this.inStream.push(source);
       }
+
+      this.$emit("views", this.inStream);
     },
   },
 };

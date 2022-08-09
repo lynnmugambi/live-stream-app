@@ -1,15 +1,23 @@
 <template>
-  <div class="stream-canvas">
+  <main class="stream-canvas">
     <div class="container"></div>
+    <StreamOptions :views="streamViews"></StreamOptions>
     <ActionPanel></ActionPanel>
-  </div>
+  </main>
 </template>
 
 <script>
 import ActionPanel from "./ActionPanel.vue";
+import StreamOptions from "./StreamOptions.vue";
 export default {
   name: "StreamCanvas",
-  components: { ActionPanel },
+  components: { ActionPanel, StreamOptions },
+  props: {
+    streamViews: {
+      type: Array,
+      default: () => [],
+    },
+  },
 };
 </script>
 
@@ -21,7 +29,7 @@ export default {
     @apply bg-black max-h-full w-full;
     aspect-ratio: 16/9;
     max-width: 1500px;
-    margin-top: -80px;
+    margin-top: -60px;
   }
 }
 </style>
